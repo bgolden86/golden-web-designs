@@ -1,0 +1,53 @@
+/* Full-viewport carousel */
+html, body { height: 100%; margin: 0; }
+#heroCarousel, .carousel-inner, .carousel-item { height: 100vh; }
+
+/* Slide media (video background) */
+.slide-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Overlays */
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55) 70%);
+  z-index: 2;
+}
+.slide-color {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #e83e8c, #444, #000);
+  z-index: 1;
+}
+
+/* Navbar overlay */
+.nav-overlay {
+  background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.15) 80%);
+  backdrop-filter: blur(2px);
+}
+
+/* Captions */
+.carousel-caption {
+  z-index: 3;
+  bottom: 12vh;
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(45deg, #e83e8c, #444);
+  border: none;
+}
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-outline-light:hover { color: #e83e8c; }
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .carousel-caption { bottom: 8vh; padding: .75rem; }
+  .carousel-caption h1, .carousel-caption h2 { font-size: 1.35rem; }
+  .carousel-caption .lead { font-size: 1rem; }
+  .btn-lg { padding: .55rem .9rem; font-size: 1rem; }
+}

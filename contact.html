@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — Golden Web Designs</title>
+  <link rel="icon" href="/assets/img/favicon.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/css/styles.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand fw-semibold" href="/index.html">Golden Web Designs</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="/services.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="/projects.html">Projects</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="container py-5">
+      <div class="row g-5 align-items-start">
+        <!-- Contact info -->
+        <div class="col-lg-5">
+          <h1 class="fw-bold text-dark mb-4">Contact Us</h1>
+          <p class="lead text-secondary mb-4">
+            Call or email anytime — I’m here to help bring your website live.
+            <br><strong>No payment until your site is fully launched and available online — guaranteed service.</strong>
+          </p>
+          <ul class="list-unstyled fs-5 mb-4">
+            <li class="mb-2"><i class="bi bi-telephone text-danger me-2"></i>
+              <a href="tel:+13149195011" class="text-dark text-decoration-none">314-919-5011</a></li>
+            <li><i class="bi bi-envelope text-danger me-2"></i>
+              <a href="mailto:GoldenWebDesign@outlook.com" class="text-dark text-decoration-none">GoldenWebDesign@outlook.com</a></li>
+          </ul>
+          <p class="small text-muted">Based in St. Charles / St. Louis, working with clients anywhere.</p>
+        </div>
+
+        <!-- Form -->
+        <div class="col-lg-7">
+          <div class="p-4 border rounded-3 shadow-sm bg-light">
+            <h2 class="h5 text-dark mb-3">Send a Message</h2>
+
+            <!-- Success message -->
+            <div id="form-success" class="alert alert-success d-none" role="alert">
+              ✅ Thanks! Your message has been sent. I’ll reply soon.
+            </div>
+
+            <form id="contact-form"
+                  name="contact"
+                  method="POST"
+                  action="/contact.html"
+                  data-netlify="true"
+                  netlify-honeypot="bot-field"
+                  class="row g-3">
+
+              <!-- Netlify required hidden field -->
+              <input type="hidden" name="form-name" value="contact">
+
+              <!-- Honeypot for spam -->
+              <p class="d-none">
+                <label>Don’t fill this out if you’re human: <input name="bot-field"></label>
+              </p>
+
+              <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Message</label>
+                <textarea name="message" rows="5" class="form-control" required></textarea>
+              </div>
+              <div class="col-12">
+                <button id="sendBtn" type="submit" class="btn btn-primary btn-lg">
+                  <span class="btn-text"><i class="bi bi-send me-1"></i>Send</span>
+                  <span class="btn-loading d-none spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-4 bg-light mt-5 border-top">
+    <div class="container text-center small">
+      &copy; 2025 Golden Web Designs — St. Charles / St. Louis, MO
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Inline form handler: URL-encode payload so Netlify captures it -->
+  <script>
+    const form = document.getElementById('contact-form');
+    const successMsg = document.getElementById('form-success');
+    const sendBtn = document.getElementById('sendBtn');
+    const btnText = sendBtn.querySelector('.btn-text');
+    const btnSpinner = sendBtn.querySelector('.btn-loading');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // show spinner
+      btnText.classList.add('d-none');
+      btnSpinner.classList.remove('d-none');
+
+      // Build URL-encoded body (Netlify AJAX requirement)
+      const formData = new FormData(form);
+      const encoded = new URLSearchParams(formData).toString();
+
+      try {
+        const resp = await fetch(form.getAttribute('action') || '/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: encoded
+        });
+
+        if (resp.ok) {
+          form.reset();
+          successMsg.classList.remove('d-none');
+        } else {
+          alert('Oops! Something went wrong. Please try again.');
+        }
+      } catch (err) {
+        alert('Error submitting form: ' + err.message);
+      } finally {
+        // restore button
+        btnSpinner.classList.add('d-none');
+        btnText.classList.remove('d-none');
+      }
+    });
+  </script>
+</body>
+</html>
